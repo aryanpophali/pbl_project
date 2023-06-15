@@ -1,0 +1,40 @@
+import cv2
+import numpy as np
+import face_recognition
+
+imgAryan = face_recognition.load_image_file('imagesBasic/DSC_05761 (5).jpg')
+imgAryan = cv2.cvtColor(imgAryan,cv2.COLOR_BGR2RGB)
+#Test image insertion
+#imgTest = face_recognition.load_image_file('imagesBasic/Test image.jpg')
+#imgTest = cv2.cvtColor(imgTest,cv2.COLOR_BGR2RGB)
+#Test image edit
+imgTest = face_recognition.load_image_file('imagesBasic/Test image.jpg')
+imgTest = cv2.cvtColor(imgTest,cv2.COLOR_BGR2RGB)
+
+faceLoc = face_recognition.face_locations(imgAryan)[0]
+encodeAryan = face_recognition.face_encodings(imgAryan)[0]
+cv2.rectangle(imgAryan,(faceLoc[3],faceLoc[0]),(faceLoc[1],faceLoc[2]),(255,0,255),2)
+
+faceLocTest = face_recognition.face_locations(imgTest)[0]
+encodeTest = face_recognition.face_encodings(imgTest)[0]
+cv2.rectangle(imgTest,(faceLoc[3],faceLoc[0]),(faceLoc[1],faceLoc[2]),(665,0,115),2)
+
+results = face_recognition.compare_faces([encodeAryan],encodeTest)
+print(results)
+
+cv2.imshow('Aryan',imgAryan)
+cv2.imshow('Aryan Test',imgTest)
+cv2.waitKey(0)
+
+#Find the face in the image and the encodings
+
+
+
+#The same above procedure for test image
+
+
+#Comparing the faces and finding the distances between them
+results = face_recognition.compare_faces([encodeAryan],encodeTest)
+faceDis = face_recognition.face_distance([encodeAryan],encodeTest)
+print(results,faceDis)
+#cv2.putText(imgTest,f'{results}{round(faceDis,2)}',(50,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
